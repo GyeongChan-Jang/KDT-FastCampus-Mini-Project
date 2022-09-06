@@ -10,6 +10,7 @@ const RecommedModal = ({ getDetail }) => {
   //   navigate('/application')
   // }
   console.log('상세정보', getDetail)
+  // const { companyName } = getDetail.data
 
   const dispatch = useDispatch()
   return (
@@ -18,9 +19,14 @@ const RecommedModal = ({ getDetail }) => {
         <header>
           <div className={style.cart}>
             <span>신청카드 정보</span>
+
           </div>
         </header>
-        <main>카드 내용</main>
+        <main>
+          카드 내용
+          {/* <p>{companyName}</p> */}
+          </main>
+        
         <footer>
           <button type='button'>장바구니 담기</button>
           <button type='button' onClick={() => dispatch(openModal(false))}>

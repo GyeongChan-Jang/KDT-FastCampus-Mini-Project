@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import Modal from '~/components/modal/Modal'
 import style from '~/scss/Search.module.scss'
 import Card from './Card'
-
+import { getCookie } from '../utils/cookie'
+import RecommendModal from '../components/modal/RecommendModal'
+import {useInquireUserDataQuery} from '~/store/slices/userApiSlice'
 import {
   useGetProductsQuery,
   useGetSearchMutation
@@ -18,6 +20,10 @@ function Search() {
   const [searchInput, setSearchInput] = useState('')
   const [isClicked, setIsClicked] = useState(false)
   const [modal, setModal] = useState(false)
+  const [isToken, setIsToken] = useState()
+
+
+  const accessToken = getCookie('accessToken')
 
   const data = {
     query: searchInput,
@@ -38,7 +44,10 @@ function Search() {
     }
   }
 
+  
+
   const openModal = () => {
+    
     setModal(true)
     document.body.style.overflow = 'hidden'
   }
@@ -135,7 +144,13 @@ function Search() {
           <Card key={index} productData={product} openModal={openModal} />
         ))
       )}
-      <Modal open={modal} close={closeModal} />
+      {
+        accessToken === undefined ?
+        <Modal open={modal} close={closeModal} />
+        :<RecommendModal />
+      }
+      
+      
     </section>
   )
 }

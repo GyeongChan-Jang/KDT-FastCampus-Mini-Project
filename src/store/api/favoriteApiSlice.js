@@ -1,5 +1,5 @@
 import { apiSlice } from '../api/apiSlice'
-
+//tag이름 자유
 const apiWithTags = apiSlice.enhanceEndpoints({ addTagTypes: ['Favorite'] })
 
 export const favoriteApiSlice = apiWithTags.injectEndpoints({
@@ -7,6 +7,7 @@ export const favoriteApiSlice = apiWithTags.injectEndpoints({
     getFavorite: builder.query({
       query: () => 'products/concern',
       transformResponse: response => response.data,
+      //
       providesTags: ['Favorite']
     }),
     addFavorite: builder.mutation({
@@ -15,6 +16,7 @@ export const favoriteApiSlice = apiWithTags.injectEndpoints({
         method: 'POST',
         body: { id }
       }),
+      //캐시 무효화
       invalidatesTags: ['Favorite']
     }),
     deleteFavorite: builder.mutation({

@@ -2,7 +2,7 @@ import React from 'react'
 
 import style from '~/scss/Search.module.scss'
 import { StarOutlined, StarFilled, SwapRightOutlined } from '@ant-design/icons'
-
+import { getCookie } from '../utils/cookie'
 import { useState } from 'react'
 import {
   useAddFavoriteMutation,
@@ -15,6 +15,7 @@ const Card = ({ productData, openModal }) => {
   const isFavorite = favorite?.find(item => item.id === productData.id)
   const [addFavorite] = useAddFavoriteMutation()
   const [deleteFavorite] = useDeleteFavoriteMutation()
+  const accessToken = getCookie('accessToken')
 
   const onFavoriteHandler = id => {
     console.log(isFavorite)
@@ -47,7 +48,7 @@ const Card = ({ productData, openModal }) => {
       <h3>{productData?.productName}</h3>
       <h4>{productData?.description}</h4>
       <p style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <p onClick={openModal}>
+        <p onClick={()=> openModal(accessToken) }>
           <span>신청하기</span>
           <SwapRightOutlined />
         </p>
